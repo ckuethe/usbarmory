@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+
+true
+exit 0

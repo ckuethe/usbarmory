@@ -1,0 +1,16 @@
+/dev/mmcblk0p1	/			ext4		defaults 1 1
+/dev/mmcblk0p2	/msdos			vfat		defaults,ro,sync,fmask=0333 1 2
+proc		/proc			proc		defaults 0 0
+
+#mount sysfs so configfs will have someplace to load
+sysfs		/sys			sysfs		defaults 0 0
+
+# modprobe loads configfs, so this will mount
+configfs	/sys/kernel/config	configfs	defaults 0 0
+
+# shrink the auto-allocated partitions
+#devtmpfs	/dev			devtmpfs	defaults,size=512k 0 0
+devpts		/dev/pts		devpts		defaults 0 0
+tmpfs		/dev/shm		tmpfs		defaults,size=5m 0 0
+#tmpfs		/run			tmpfs		defaults,size=5m 0 0
+#tmpfs		/run/lock		tmpfs		defaults,size=1m 0 0
