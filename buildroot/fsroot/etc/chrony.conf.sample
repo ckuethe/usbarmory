@@ -1,0 +1,14 @@
+server 0.pool.ntp.org iburst
+server 1.pool.ntp.org iburst
+server 2.pool.ntp.org iburst
+server 3.pool.ntp.org iburst
+keyfile /etc/chrony.keys
+generatecommandkey
+driftfile /var/lib/chrony/drift
+makestep 10 3
+initstepslew 10 pool.ntp.org
+logdir /var/log/chrony
+log measurements statistics tracking
+logchange 0.5
+makestep 300 10
+port 0
