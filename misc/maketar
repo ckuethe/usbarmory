@@ -1,0 +1,21 @@
+#!/bin/sh
+
+V=$(basename $PWD | sed -e 's/kernel-//')
+TAR=~/usbarmory/out/linux-${V}-usbarmory.tgz
+DIR=/tmp/k-$V
+BOOT=$DIR/boot/${V}/
+
+export ARCH=arm
+export CROSS_COMPILE=arm-none-eabi-
+export PATH=~/usbarmory/toolchain/bin:$PATH
+make -j4 uImage LOADADDR=0x70008000 modules dtbs
+
+rm -rf $DIR
+mkdir -p $BOOT
+cp ~/usbarmory/dist/output/mx53/bin/diag-obds-mx53sbrth_lcb-rev1.bin $BOOT/obds.bin
+cp arch/arm/boot/uImage arch/arm/boot/dts/imx53-usbarmory.dtb $BOOT/
+rm -rf $DIR/lib/modules/${V}/
+make modules_install INSTALL_MOD_PATH=$DIR > /dev/null
+
+rm -f $TAR
+tar -C $DIR -zcf $TAR .
