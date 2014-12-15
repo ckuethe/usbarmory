@@ -1,0 +1,4 @@
+proc		/proc			proc		defaults 0 0
+sysfs		/sys			sysfs		defaults 0 0
+configfs	/sys/kernel/config	configfs	defaults 0 0
+#devtmpfs	/dev			devtmpfs	defaults,size=512k 0 0

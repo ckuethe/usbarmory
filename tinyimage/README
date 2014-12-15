@@ -1,0 +1,14 @@
+Less automated or opaque than buildroot, this is a set of scripts and
+configuration files to produce a small bootable filesystem image. The
+components are fairly reusable; u-boot and linux could be used with a
+filesystem based on a debian "debootstrap", for example.  Embedded in
+the filesystem are the build configration files.
+
+Scripts
+=======
+0_downloader.sh - download and extract the packages
+1_busybox.sh - build and stage busybox
+2_dropbear.sh - build and stage dropbear
+3_uboot.sh - build and stage u-boot
+4_linux.sh - build and stage linux
+8_build_rootfs.sh - build various filesystem image formats
