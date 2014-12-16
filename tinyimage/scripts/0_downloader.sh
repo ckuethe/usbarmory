@@ -13,8 +13,11 @@ U="http://busybox.net/downloads/busybox-1.22.1.tar.bz2"
 test -f $(basename $U) || echo wget $U
 U="https://matt.ucc.asn.au/dropbear/releases/dropbear-2014.66.tar.bz2"
 test -f $(basename $U) || echo wget $U
+U="http://uclibc.org/downloads/uClibc-0.9.33.2.tar.xz"
+test -f $(basename $U) || echo wget $U
 
 unzip -qo usbarmory.zip
 tar xf linux-3.18.tar.xz
 tar xf busybox-1.22.1.tar.bz2
 tar xf dropbear-2014.66.tar.bz2
+tar xf uClibc-0.9.33.2.tar.xz

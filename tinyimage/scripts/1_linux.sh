@@ -21,6 +21,7 @@ make -j4 uImage LOADADDR=0x70008000 dtbs modules
 rm -rf $DIR
 mkdir -p ${DIR}/boot ${DIR}/lib ${DIR}/root
 make modules_install INSTALL_MOD_PATH=${DIR}
+make headers_install INSTALL_HDR_PATH=${DIR}/../dir_libc/usr/
 cp arch/arm/boot/uImage System.map $D/imx53-usbarmory.dtb ${DIR}/boot
 cp $D/imx53-usbarmory.dts ${DIR}/root/
 cp .config ${DIR}/root/linux.config

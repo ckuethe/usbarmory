@@ -7,8 +7,11 @@ the filesystem are the build configration files.
 Scripts
 =======
 0_downloader.sh - download and extract the packages
-1_busybox.sh - build and stage busybox
-2_dropbear.sh - build and stage dropbear
-3_uboot.sh - build and stage u-boot
-4_linux.sh - build and stage linux
+1_linux.sh - build and stage linux
+2_uboot.sh - build and stage u-boot
+3_libc.sh - build and stage libc (using stage 1 kernel headers)
+4_busybox.sh - build and stage busybox
+5_dropbear.sh - build and stage dropbear
 8_build_rootfs.sh - build various filesystem image formats
+
+9_build_initrd.sh
