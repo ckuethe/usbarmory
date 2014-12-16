@@ -6,14 +6,13 @@
 # packages (like linux and busybox) to produce a root filesystem
 
 DIR=${PWD}/out/dir_dropbear
+SR="--sysroot ${PWD}/out/dir_libc"
 cd src/dropbear-2014.66
 
-export CROSS_COMPILE=arm-linux-gnueabihf
-export CC="$CROSS_COMPILE-gcc"
-export LD="$CROSS_COMPILE-gcc"
-export AR="$CROSS_COMPILE-ar"
-#env CC=arm-linux-gnueabihf-gcc LDFLAGS=-Wl,--gc-sections CFLAGS="-ffunction-sections -fdata-sections -O3" 
-./configure --prefix=/usr --host x86_64-unknown-linux-gnu --target arm-linux-gnueabihf --disable-zlib
+make -i clean
+export LDFLAGS="$SR -Wl,--gc-sections"
+export CFLAGS="$SR -ffunction-sections -fdata-sections -O3"
+./configure --prefix=/usr --build=x86_64-unknown-linux-gnu --host=arm-linux-gnueabihf --disable-zlib
 
 # optionally, you can pass in a generated configuration file
 if [ $# -eq 1 -a -f $1 ] ; then
@@ -25,8 +24,8 @@ fi
 
 vi options.h
 rm -rf $DIR
-make CC=$CC MULTI=1 STATIC=1 PROGRAMS="dropbear dbclient dropbearkey dropbearconvert scp" DESTDIR=$DIR
-make CC=$CC MULTI=1 STATIC=1 DESTDIR=$DIR install
+make MULTI=1 STATIC=1 PROGRAMS="dropbear dbclient dropbearkey dropbearconvert scp" DESTDIR=$DIR
+make MULTI=1 STATIC=1 DESTDIR=$DIR install
 
 mkdir -p ${DIR}/etc/dropbear ${DIR}/root
 cp options.h ${DIR}/root/dropbear-options.h
