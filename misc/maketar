@@ -1,21 +1,20 @@
 #!/bin/sh
 
-V=$(basename $PWD | sed -e 's/kernel-//')
-TAR=~/usbarmory/out/linux-${V}-usbarmory.tgz
-DIR=/tmp/k-$V
-BOOT=$DIR/boot/${V}/
+set -e
 
-export ARCH=arm
-export CROSS_COMPILE=arm-none-eabi-
-export PATH=~/usbarmory/toolchain/bin:$PATH
-make -j4 uImage LOADADDR=0x70008000 modules dtbs
+BOARD="multi_v7" # includes vexpress-v2p-ca9 and imx53qsb
+FLAGS="O=o_${BOARD} ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- KBUILD_USER=root KBUILD_HOST=usbarmory"
 
-rm -rf $DIR
-mkdir -p $BOOT
-cp ~/usbarmory/dist/output/mx53/bin/diag-obds-mx53sbrth_lcb-rev1.bin $BOOT/obds.bin
-cp arch/arm/boot/uImage arch/arm/boot/dts/imx53-usbarmory.dtb $BOOT/
-rm -rf $DIR/lib/modules/${V}/
-make modules_install INSTALL_MOD_PATH=$DIR > /dev/null
+rm -rf "o_${BOARD}"
+mkdir -p "o_${BOARD}" # in case i commented out the previous rm(1)
 
-rm -f $TAR
-tar -C $DIR -zcf $TAR .
+#make $FLAGS "${BOARD}_defconfig"
+make $FLAGS -j4 Image
+make $FLAGS -j4 uImage zImage LOADADDR=0x70008000
+make $FLAGS -j4 dtbs
+make $FLAGS -j4 modules
+
+# Check out scripts/package/Makefile - neat!
+# patched buildtar to copy {,u,z}Image and *.dtb on arm
+make $FLAGS tarxz-pkg
+#make $FLAGS deb-pkg
