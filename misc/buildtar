@@ -79,6 +79,14 @@ case "${ARCH}" in
 	alpha)
 		[ -f "${objtree}/arch/alpha/boot/vmlinux.gz" ] && cp -v -- "${objtree}/arch/alpha/boot/vmlinux.gz" "${tmpdir}/boot/vmlinuz-${KERNELRELEASE}"
 		;;
+	arm)
+		[ -f "${objtree}/arch/arm/boot/Image" ] && cp -v -- "${objtree}/arch/arm/boot/Image" "${tmpdir}/boot/Image-${KERNELRELEASE}"
+		[ -f "${objtree}/arch/arm/boot/uImage" ] && cp -v -- "${objtree}/arch/arm/boot/uImage" "${tmpdir}/boot/uImage-${KERNELRELEASE}"
+		[ -f "${objtree}/arch/arm/boot/zImage" ] && cp -v -- "${objtree}/arch/arm/boot/zImage" "${tmpdir}/boot/zImage-${KERNELRELEASE}"
+		[ -f "${objtree}/arch/arm/boot/bzImage" ] && cp -v -- "${objtree}/arch/arm/boot/bzImage" "${tmpdir}/boot/bzImage-${KERNELRELEASE}"
+		mkdir -p "${tmpdir}/boot/dtb"
+		cp -v -- "${objtree}/arch/arm/boot/dts/"*.dtb "${tmpdir}/boot/dtb"
+		;;
 	parisc*)
 		[ -f "${KBUILD_IMAGE}" ] && cp -v -- "${KBUILD_IMAGE}" "${tmpdir}/boot/vmlinux-${KERNELRELEASE}"
 		[ -f "${objtree}/lifimage" ] && cp -v -- "${objtree}/lifimage" "${tmpdir}/boot/lifimage-${KERNELRELEASE}"
