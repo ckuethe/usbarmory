@@ -1,5 +1,7 @@
 #!/bin/sh
-set -x
+
+# You probably don't need this. At least on ubuntu, the crosscompiler is ok
+# arm-linux-gnueabihf-gcc (Ubuntu/Linaro 4.9.1-16ubuntu6) 4.9.1
 
 # http://kunen.org/uC/gnu_tool.html
 # http://www.infopoort.nl/index.php/Software:ARM_Toolchain
@@ -61,11 +63,3 @@ make -j4
 make install
 
 echo "cross compiler for $TGT installed in $TOOLCHAIN_DIR" > /dev/stdout
-
-#uboot
-#make usbarmory_config
-#env PATH=${TOOLCHAIN_DIR}/bin:$PATH ARCH=arm CROSS_COMPILE=arm-none-eabi- make -j4
-
-#kernel
-#env PATH=${TOOLCHAIN_DIR}/bin:$PATH ARCH=arm CROSS_COMPILE=arm-none-eabi- make -j4 uImage LOADADDR=0x70008000 dtbs modules
-#env PATH=${TOOLCHAIN_DIR}/bin:$PATH ARCH=arm CROSS_COMPILE=arm-none-eabi- sudo -E make modules_install INSTALL_MOD_PATH=/mnt/
