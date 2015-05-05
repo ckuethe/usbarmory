@@ -1,7 +1,7 @@
 MEMORY
 {	
 	rom0	(rx)	: ORIGIN =        0x0, LENGTH = 16K
-	rom1	(rx)	: ORIGIN =   0x400000, LENGTH = 48K
+	rom1	(rx)	: ORIGIN =   0x404000, LENGTH = 48K
 	scram	(rwx)	: ORIGIN = 0x07000000, LENGTH = 16K
 	tzram	(rwx)	: ORIGIN = 0x0fffc000, LENGTH = 16K
 	regs0	(rw)	: ORIGIN = 0x53f80000, LENGTH = 0x80000
@@ -19,7 +19,7 @@ SECTIONS
 	bootrom-0.o (.blob)
 	}
 
-	.rom1 0x400000 :
+	.rom1 0x404000 :
 	{
 	. = 0x0;
 	bootrom-1.o (.blob)
