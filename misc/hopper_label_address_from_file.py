@@ -17,8 +17,8 @@ with open(infile, "r") as f:
 		try:
 			doc.setNameAtAddress(addr, label)
 			doc.log("0x%x %s" % (addr, label))
-			#seg = doc.getSegmentAtAddress(a)
-			#seg.setTypeAtAddress(a, 4, Segment.TYPE_INT)
+			# FIXME this assumes all registers are 32 bit, which is not true.
+			# FIXME watchdogs are 16 bit, and eFuses are 8 bit
 			doc.getSegmentAtAddress(addr).setTypeAtAddress(addr, 4, Segment.TYPE_INT)
 		except AttributeError:
 			pass
