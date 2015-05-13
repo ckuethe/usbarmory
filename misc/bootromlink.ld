@@ -27,6 +27,8 @@ SECTIONS
 
 	.scram 0x07000000 : { vars.o (.scram) } >scram
 	.tzram 0x0fffc000 : { vars.o (.tzram) } >tzram
+	.debug 0x40000000 : { vars.o (.debug) } >debug
+	.sbpa  0x50000000 : { vars.o (.sbpa) } >sbpa
 	.regs0 0x53f80000 : { vars.o (.regs0) } >regs0
 	.regs1 0x63f80000 : { vars.o (.regs1) } >regs1
 	.dram  0x70000000 : { vars.o (.dram) } >dram
