@@ -6,6 +6,9 @@
 # License: Perl Artistic <http://dev.perl.org/licenses/artistic.html>
 # Description: generate a register map from the reference manual
 
+#TODO figure out how to extract register length from docs
+#TODO figure out how to deal with "0xBase_0200" format
+
 import re
 import PyPDF2
 import sys
