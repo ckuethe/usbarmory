@@ -20,7 +20,7 @@ if len(sys.argv) != 3:
 infp = open(sys.argv[1], 'rb')
 outfp = open(sys.argv[2], 'w')
 pdf = PyPDF2.PdfFileReader(infp)
-rgx = re.compile('Address: ([A-Z0-9_-]+) is [0-9A-F]{4}_[0-9A-F]{4}h.*? = ([0-9A-F]{4})_([0-9A-F]{4})h')
+rgx = re.compile('([A-Z][A-Z0-9_-]+) is [0-9A-F]{4}_[0-9A-F]{4}h.*? = ([0-9A-F]{4})_([0-9A-F]{4})h')
 
 for i in range( pdf.getNumPages() ):
 	sys.stderr.write("%d " % i)
@@ -33,4 +33,5 @@ for i in range( pdf.getNumPages() ):
 		#print reg
 		outfp.write(reg)
 
+sys.stderr.write('\n')
 outfp.close()
