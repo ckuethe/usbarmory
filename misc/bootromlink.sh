@@ -1,7 +1,8 @@
 #!/bin/sh -e
 
 X="arm-linux-gnueabihf-"
-E="mx53boot.elf"
+EP="0x0040e568" # empirically determined from the reset vector
+E="mx53boot_${E}.elf"
 
 rm -f empty.o bootrom-*.o vars.o $E
 
@@ -27,6 +28,6 @@ F="--set-section-flags .blob=alloc,contents,load,code"
 ${X}objcopy --add-section .blob=bootrom-0-16k.bin $F bootrom-0.o 
 ${X}objcopy --add-section .blob=bootrom-1-48k.bin $F bootrom-1.o 
 
-${X}ld -e 0xc0 -T bootromlink.ld -o $E
+${X}ld -e $EP -T bootromlink.ld -o $E
 ${X}objdump -x $E
 ${X}size $E
