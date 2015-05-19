@@ -4,12 +4,16 @@
 # License: Perl Artistic <http://dev.perl.org/licenses/artistic.html>
 # Description: adds names to known register addresses
 
+import string
 doc = Document.getCurrentDocument()
 infile = doc.askFile('Select annotation file', None, None)
 
 with open(infile, "r") as f:
+	# replace '-' with '_' to prevent misinterpretation of stuff like "GPIO-5"
+	tr = string.maketrans('-', '_')
 	for line in f:
 		(addr, label) = line.split()
+		label = label.translate(tr)
 		if '0x' in addr:
 			addr = int(addr, 16)
 		else:
